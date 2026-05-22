@@ -1,0 +1,19 @@
+{
+  "name": "relaunchher",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "ReLaunchHer MVP for GDG Code4Her Track 1",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node --test tests/analysis.test.js"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.8.0"
+  },
+  "devDependencies": {
+    "@mermaid-js/mermaid-cli": "^11.12.0",
+    "docx": "^9.6.1"
+  }
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register | ReLaunchHer</title>
+  <meta name="description" content="Create your free ReLaunchHer account to start your career comeback journey." />
+  <meta name="theme-color" content="#a44565" />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div class="page-shell auth-page-shell">
+    <header class="site-header">
+      <a class="brandmark" href="./index.html">ReLaunchHer</a>
+      <div class="header-tools">
+        <div id="auth-slot" class="auth-slot"></div>
+      </div>
+    </header>
+
+    <main id="main-content" class="auth-layout auth-layout-wide">
+      <section class="auth-card auth-card-hero">
+        <p class="eyebrow">Create your access</p>
+        <h1 data-i18n="auth.registerTitle">Create your account</h1>
+        <p class="lead">Sign up once to unlock the complete ReLaunchHer platform.</p>
+        <div class="card-grid three auth-benefits">
+          <article class="mini-3d-card benefit-card">
+            <span class="lock-pill">Returnee</span>
+            <strong>Plan your return</strong>
+            <p>Roadmaps, saved progress, jobs, and mentor support.</p>
+          </article>
+          <article class="mini-3d-card benefit-card">
+            <span class="lock-pill">Mentor</span>
+            <strong>Guide women back</strong>
+            <p>Mentor requests and simple support flows.</p>
+          </article>
+          <article class="mini-3d-card benefit-card">
+            <span class="lock-pill">Recruiter</span>
+            <strong>Hire returnees</strong>
+            <p>Post roles and review comeback-ready profiles.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="auth-card">
+        <p class="eyebrow" data-i18n="auth.registerTitle">Create your account</p>
+        <h2 data-i18n="auth.registerTitle">Create your account</h2>
+        <form id="register-form" class="planner-form">
+          <label><span data-i18n="auth.name">Full name</span><input name="name" required /></label>
+          <label><span data-i18n="auth.email">Email</span><input name="email" type="email" required /></label>
+          <label><span data-i18n="auth.password">Password</span><input name="password" type="password" minlength="6"
+              required /></label>
+          <label><span data-i18n="auth.role">Role</span><select id="role" name="role"></select></label>
+          <label><span data-i18n="auth.language">Language</span><select id="language" name="language"></select></label>
+          <button class="primary-button" type="submit" data-i18n="auth.registerButton">Register</button>
+        </form>
+        <p id="auth-message" class="status-line"></p>
+        <a class="secondary-button" href="./login.html" data-i18n="auth.toLogin">Already have an account? Login</a>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="./register.js"></script>
+  <script src="./bg-animation.js" defer></script>
+  <script src="./footer.js" defer></script>
+  <script src="./transitions.js" defer></script>
+</body>
+
+</html>

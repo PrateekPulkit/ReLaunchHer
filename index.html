@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ReLaunchHer | Job Re-Entry Platform for Women</title>
+  <meta name="description"
+    content="A smarter career re-entry platform for women returning to work. Clear guidance, role-ready plans, mentor support, and opportunity discovery." />
+  <meta name="theme-color" content="#a44565" />
+  <meta property="og:title" content="ReLaunchHer" />
+  <meta property="og:description" content="A smarter re-entry platform for women returning to work." />
+  <meta property="og:type" content="website" />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div class="page-shell">
+    <header class="site-header">
+      <a class="brandmark" href="./index.html">ReLaunchHer</a>
+      <nav class="main-nav">
+        <a class="nav-link is-active" href="./index.html" data-i18n="nav.home">Home</a>
+        <a class="nav-link" href="./planner.html" data-i18n="nav.planner">Planner</a>
+        <a class="nav-link" href="./dashboard.html" data-i18n="nav.dashboard">Dashboard</a>
+        <a class="nav-link" href="./opportunities.html" data-i18n="nav.opportunities">Opportunities</a>
+        <a class="nav-link" href="./stories.html" data-i18n="nav.personas">Personas</a>
+      </nav>
+      <div class="header-tools">
+        <div id="auth-slot" class="auth-slot"></div>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <section class="hero-shell home-hero">
+        <div class="hero-copy">
+          <p class="eyebrow" data-i18n="home.eyebrow">Women power = Nation's power</p>
+          <h1 data-i18n="home.title">A smarter re-entry platform for women returning to work.</h1>
+          <p class="lead" data-i18n="home.lead">Clear guidance. Role-ready plans. Mentor support. Opportunity discovery.
+          </p>
+          <div class="hero-actions">
+            <a id="hero-primary-cta" class="primary-button" href="./planner.html" data-i18n="home.ctaPrimary">Start
+              planning</a>
+            <a id="hero-secondary-cta" class="secondary-button" href="./opportunities.html"
+              data-i18n="home.ctaSecondary">Explore opportunities</a>
+          </div>
+          <div class="locked-inline">
+            <span class="lock-pill">Members only</span>
+            <span>Planner, dashboard, mentor requests, recruiter tools, and saved progress unlock after login.</span>
+          </div>
+        </div>
+
+        <aside class="hero-preview floating-preview">
+          <div class="preview-stack">
+            <article class="preview-card warm">
+              <span class="mini-label" data-i18n="roles.returnee">Returnee</span>
+              <strong>Plan</strong>
+              <p>Career roadmap, confidence steps, and personalized job matches.</p>
+            </article>
+            <article class="preview-card dark shifted">
+              <span class="mini-label" data-i18n="roles.mentor">Mentor</span>
+              <strong>Guide</strong>
+              <p>Short sessions, practical support, and simple feedback tools.</p>
+            </article>
+            <article class="preview-card soft raised">
+              <span class="mini-label" data-i18n="roles.recruiter">Recruiter</span>
+              <strong>Hire</strong>
+              <p>Returnship-friendly openings, candidate matches, and role tracking.</p>
+            </article>
+          </div>
+        </aside>
+      </section>
+
+      <section class="card-grid three">
+        <article class="feature-card mini-3d-card">
+          <h2 data-i18n="home.feature1Title">Simple journey</h2>
+          <p data-i18n="home.feature1Text">Plan, practice, apply, and track progress in one place.</p>
+        </article>
+        <article class="feature-card mini-3d-card">
+          <h2 data-i18n="home.feature2Title">Made for confidence</h2>
+          <p data-i18n="home.feature2Text">Short steps, clear cards, and supportive language.</p>
+        </article>
+        <article class="feature-card mini-3d-card">
+          <h2 data-i18n="home.feature3Title">Role-based platform</h2>
+          <p data-i18n="home.feature3Text">Returnees, mentors, and recruiters each get a focused workspace.</p>
+        </article>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading">
+          <p class="eyebrow">Unlocked after sign in</p>
+          <h2>Exclusive tools</h2>
+        </div>
+        <div class="card-grid three">
+          <article class="feature-card mini-3d-card locked-card">
+            <span class="lock-pill">01</span>
+            <h2>Private comeback planner</h2>
+            <p>Generate and save your personal roadmap, weekly sprint, and confidence plan.</p>
+          </article>
+          <article class="feature-card mini-3d-card locked-card">
+            <span class="lock-pill">02</span>
+            <h2>Personal dashboard</h2>
+            <p>Track wins, notes, saved jobs, applications, and comeback momentum.</p>
+          </article>
+          <article class="feature-card mini-3d-card locked-card">
+            <span class="lock-pill">03</span>
+            <h2>Role workspace</h2>
+            <p>Mentors guide users, recruiters post openings, and returnees manage their journey.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading">
+          <p class="eyebrow" data-i18n="common.quickDemo">Quick demo personas</p>
+          <h2>Interactive examples</h2>
+        </div>
+        <div id="spotlight-buttons" class="filter-row"></div>
+        <div id="spotlight-panel" class="spotlight-panel"></div>
+      </section>
+
+      <section class="section-block">
+        <div class="section-heading">
+          <p class="eyebrow">Platform strength</p>
+          <h2>Built for clarity and scale</h2>
+        </div>
+        <div id="demo-stats" class="card-grid three"></div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="./home.js"></script>
+  <script src="./bg-animation.js" defer></script>
+  <script src="./footer.js" defer></script>
+  <script src="./transitions.js" defer></script>
+</body>
+
+</html>

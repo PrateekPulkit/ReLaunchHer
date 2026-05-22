@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard | ReLaunchHer</title>
+  <meta name="description"
+    content="Your personal comeback dashboard — track wins, notes, saved jobs, and career momentum." />
+  <meta name="theme-color" content="#a44565" />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div class="page-shell">
+    <header class="site-header">
+      <a class="brandmark" href="./index.html">ReLaunchHer</a>
+      <nav class="main-nav">
+        <a class="nav-link" href="./index.html" data-i18n="nav.home">Home</a>
+        <a class="nav-link" href="./planner.html" data-i18n="nav.planner">Planner</a>
+        <a class="nav-link is-active" href="./dashboard.html" data-i18n="nav.dashboard">Dashboard</a>
+        <a class="nav-link" href="./opportunities.html" data-i18n="nav.opportunities">Opportunities</a>
+        <a class="nav-link" href="./stories.html" data-i18n="nav.personas">Personas</a>
+      </nav>
+      <div class="header-tools">
+        <div id="auth-slot" class="auth-slot"></div>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <div id="dashboard-root" class="dashboard-shell"></div>
+    </main>
+  </div>
+
+  <script type="module" src="./dashboard.js"></script>
+  <script src="./bg-animation.js" defer></script>
+  <script src="./footer.js" defer></script>
+  <script src="./transitions.js" defer></script>
+</body>
+
+</html>

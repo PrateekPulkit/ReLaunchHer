@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | ReLaunchHer</title>
+  <meta name="description" content="Log in to your ReLaunchHer account to access your career re-entry tools." />
+  <meta name="theme-color" content="#a44565" />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div class="page-shell auth-page-shell">
+    <header class="site-header">
+      <a class="brandmark" href="./index.html">ReLaunchHer</a>
+      <div class="header-tools">
+        <div id="auth-slot" class="auth-slot"></div>
+      </div>
+    </header>
+
+    <main id="main-content" class="auth-layout auth-layout-wide">
+      <section class="auth-card auth-card-hero">
+        <p class="eyebrow">Unlock member tools</p>
+        <h1 data-i18n="auth.loginTitle">Welcome back</h1>
+        <p class="lead" data-i18n="auth.loginLead">Log in to continue your job re-entry journey.</p>
+        <div class="card-grid three auth-benefits">
+          <article class="mini-3d-card benefit-card">
+            <span class="lock-pill">01</span>
+            <strong>Private roadmap</strong>
+            <p>Your saved comeback planner and weekly sprint.</p>
+          </article>
+          <article class="mini-3d-card benefit-card">
+            <span class="lock-pill">02</span>
+            <strong>Smart dashboard</strong>
+            <p>Wins, notes, saved jobs, and interview tracking.</p>
+          </article>
+          <article class="mini-3d-card benefit-card">
+            <span class="lock-pill">03</span>
+            <strong>Role workspace</strong>
+            <p>Returnee, mentor, and recruiter experiences after login.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="auth-card">
+        <p class="eyebrow" data-i18n="auth.loginTitle">Welcome back</p>
+        <h2 data-i18n="auth.loginTitle">Welcome back</h2>
+        <form id="login-form" class="planner-form">
+          <label><span data-i18n="auth.email">Email</span><input name="email" type="email" required /></label>
+          <label><span data-i18n="auth.password">Password</span><input name="password" type="password"
+              required /></label>
+          <button class="primary-button" type="submit" data-i18n="auth.loginButton">Login</button>
+        </form>
+        <p id="auth-message" class="status-line"></p>
+        <a class="secondary-button" href="./register.html" data-i18n="auth.toRegister">Need an account? Register</a>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="./login.js"></script>
+  <script src="./bg-animation.js" defer></script>
+  <script src="./footer.js" defer></script>
+  <script src="./transitions.js" defer></script>
+</body>
+
+</html>

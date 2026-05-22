@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Career Planner | ReLaunchHer</title>
+  <meta name="description"
+    content="Build your personalized career comeback plan with ReLaunchHer. Clear steps, skill gap analysis, and a saved roadmap." />
+  <meta name="theme-color" content="#a44565" />
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+  <style>
+    /* ── Planner step-specific additions ── */
+    .step-panel { animation: fadeSlideIn 0.35s ease both; }
+    @keyframes fadeSlideIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .field-hint {
+      font-size: 0.78rem;
+      color: var(--text-muted, #888);
+      margin-top: 3px;
+      margin-bottom: 0;
+      line-height: 1.4;
+    }
+    .chip-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
+    }
+    .chip-option {
+      display: none;
+    }
+    .chip-option + label {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1.5px solid var(--border, #d0c4c9);
+      background: transparent;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      color: var(--text-secondary, #6b5f65);
+      font-weight: 500;
+      user-select: none;
+    }
+    .chip-option:checked + label {
+      background: var(--accent, #a44565);
+      border-color: var(--accent, #a44565);
+      color: #fff;
+    }
+    .chip-option + label:hover {
+      border-color: var(--accent, #a44565);
+      color: var(--accent, #a44565);
+    }
+    .chip-option:checked + label:hover {
+      color: #fff;
+    }
+    .slider-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.73rem;
+      color: var(--text-muted, #999);
+      margin-top: 4px;
+    }
+    .step-heading {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: var(--text-primary, #2d1b24);
+    }
+    .step-sub {
+      font-size: 0.82rem;
+      color: var(--text-muted, #888);
+      margin-bottom: 18px;
+    }
+    .field-group { margin-bottom: 18px; }
+    .field-group > label > span { display: block; margin-bottom: 4px; font-weight: 600; font-size: 0.88rem; }
+
+    /* Step progress labels */
+    .step-label-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      color: var(--text-muted, #999);
+      margin-top: 6px;
+      padding: 0 2px;
+    }
+    .step-label-row span.active-label { color: var(--accent, #a44565); font-weight: 600; }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div class="page-shell">
+    <header class="site-header">
+      <a class="brandmark" href="./index.html">ReLaunchHer</a>
+      <nav class="main-nav">
+        <a class="nav-link" href="./index.html" data-i18n="nav.home">Home</a>
+        <a class="nav-link is-active" href="./planner.html" data-i18n="nav.planner">Planner</a>
+        <a class="nav-link" href="./dashboard.html" data-i18n="nav.dashboard">Dashboard</a>
+        <a class="nav-link" href="./opportunities.html" data-i18n="nav.opportunities">Opportunities</a>
+        <a class="nav-link" href="./stories.html" data-i18n="nav.personas">Personas</a>
+      </nav>
+      <div class="header-tools">
+        <div id="auth-slot" class="auth-slot"></div>
+      </div>
+    </header>
+
+    <main id="main-content" class="app-shell">
+      <section class="planner-sidebar">
+        <div class="section-heading">
+          <p class="eyebrow" data-i18n="planner.title">Build your comeback plan</p>
+          <h1 data-i18n="planner.title">Build your comeback plan</h1>
+          <p class="lead" data-i18n="planner.lead">Short steps. Clear outputs. Saved to your dashboard.</p>
+        </div>
+
+        <div class="wizard-progress">
+          <div class="progress-track"><span id="progress-fill"></span></div>
+          <div class="step-dots">
+            <span class="step-dot is-active">1</span>
+            <span class="step-dot">2</span>
+            <span class="step-dot">3</span>
+            <span class="step-dot">4</span>
+          </div>
+          <div class="step-label-row">
+            <span id="lbl-0" class="active-label">Background</span>
+            <span id="lbl-1">Direction</span>
+            <span id="lbl-2">Readiness</span>
+            <span id="lbl-3">Goals</span>
+          </div>
+        </div>
+
+        <form id="planner-form" class="planner-form" novalidate>
+
+          <!-- ══════════════════════════════════════════
+               STEP 1 — Professional Background
+          ══════════════════════════════════════════ -->
+          <section class="step-panel" id="step-0">
+            <p class="step-heading">Your Professional Background</p>
+            <p class="step-sub">Help us understand where you're coming from so we can match your experience accurately.</p>
+
+            <div class="field-group">
+              <label>
+                <span>Previous job title / role <span style="color:var(--accent)">&ast;</span></span>
+                <input id="previousRole" name="previousRole" placeholder="e.g. Software Engineer, Marketing Manager" required />
+              </label>
+              <p class="field-hint">Be specific — this helps us map your transferable strengths.</p>
+            </div>
+
+            <div class="split field-group">
+              <div>
+                <label>
+                  <span>Years of experience <span style="color:var(--accent)">&ast;</span></span>
+                  <input id="yearsExperience" name="yearsExperience" type="number" min="0" max="35" placeholder="e.g. 5" required />
+                </label>
+                <p class="field-hint">Total professional years before the break.</p>
+              </div>
+              <div>
+                <label>
+                  <span>Career break length (years) <span style="color:var(--accent)">&ast;</span></span>
+                  <input id="careerBreakYears" name="careerBreakYears" type="number" min="0" max="25" step="0.5" placeholder="e.g. 2" required />
+                </label>
+                <p class="field-hint">Even 6 months matters — enter 0.5 if less than a year.</p>
+              </div>
+            </div>
+
+            <div class="field-group">
+              <label>
+                <span>Primary reason for career break <span style="color:var(--accent)">&ast;</span></span>
+                <select id="reasonCategory" name="reasonCategory">
+                  <option value="motherhood">Motherhood / Parenting</option>
+                  <option value="caregiving">Family caregiving (elder / sick relative)</option>
+                  <option value="health">Personal health or mental wellbeing</option>
+                  <option value="education">Further education or upskilling</option>
+                  <option value="relocation">Relocation / visa or immigration change</option>
+                  <option value="layoff">Layoff / redundancy during break</option>
+                  <option value="entrepreneurship">Tried entrepreneurship / freelancing</option>
+                  <option value="other">Other personal reasons</option>
+                </select>
+              </label>
+              <p class="field-hint">This helps us identify hidden strengths gained during your break.</p>
+            </div>
+
+            <div class="field-group">
+              <label>
+                <span>Industry or sector you worked in</span>
+                <select id="previousIndustry" name="previousIndustry">
+                  <option value="tech">Technology / Software</option>
+                  <option value="finance">Finance / Banking</option>
+                  <option value="healthcare">Healthcare / Pharma</option>
+                  <option value="education">Education / EdTech</option>
+                  <option value="retail">Retail / E-commerce</option>
+                  <option value="media">Media / Advertising</option>
+                  <option value="government">Government / Non-profit</option>
+                  <option value="consulting">Consulting / Professional Services</option>
+                  <option value="manufacturing">Manufacturing / Operations</option>
+                  <option value="other">Other</option>
+                </select>
+              </label>
+              <p class="field-hint">Industry context helps us tailor job opportunities and salary benchmarks.</p>
+            </div>
+
+            <div class="field-group">
+              <label>
+                <span>Highest level of education</span>
+                <select id="educationLevel" name="educationLevel">
+                  <option value="highschool">High School / Secondary</option>
+                  <option value="diploma">Diploma / Associate's Degree</option>
+                  <option value="bachelors">Bachelor's Degree</option>
+                  <option value="masters">Master's Degree</option>
+                  <option value="phd">PhD / Doctorate</option>
+                  <option value="professional">Professional Certification (e.g. CA, CFA)</option>
+                  <option value="self">Self-taught / Bootcamp Graduate</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="field-group">
+              <label>
+                <span>Team or leadership experience</span>
+                <select id="leadershipExperience" name="leadershipExperience">
+                  <option value="none">None — individual contributor only</option>
+                  <option value="informal">Informal mentorship or project lead</option>
+                  <option value="team-lead">Team lead (2–5 people)</option>
+                  <option value="manager">Manager (6–15 people)</option>
+                  <option value="senior-leader">Senior leader / Director+</option>
+                </select>
+              </label>
+              <p class="field-hint">Leadership experience significantly boosts your readiness score.</p>
+            </div>
+          </section>
+
+          <!-- ══════════════════════════════════════════
+               STEP 2 — Target Direction
+          ══════════════════════════════════════════ -->
+          <section class="step-panel" id="step-1" hidden>
+            <p class="step-heading">Where You Want to Go</p>
+            <p class="step-sub">Tell us about your target role and the skills you already bring to the table.</p>
+
+            <div class="field-group">
+              <label>
+                <span>Target role <span style="color:var(--accent)">&ast;</span></span>
+                <select id="targetRole" name="targetRole">
+                  <option value="Software Engineer">Software Engineer</option>
+                  <option value="Data Analyst">Data Analyst</option>
+                  <option value="Product Manager">Product Manager</option>
+                  <option value="UX Designer">UX Designer</option>
+                  <option value="Marketing Specialist">Marketing Specialist</option>
+                  <option value="HR Manager">HR Manager</option>
+                  <option value="Project Manager">Project Manager</option>
+                  <option value="Financial Analyst">Financial Analyst</option>
+                  <option value="Content Strategist">Content Strategist</option>
+                  <option value="Business Analyst">Business Analyst</option>
+                  <option value="Sales Manager">Sales Manager</option>
+                  <option value="Operations Manager">Operations Manager</option>
+                </select>
+              </label>
+              <p class="field-hint">Can't find your role? Pick the closest match — we'll adapt the plan.</p>
+            </div>
+
+            <div class="field-group">
+              <label>
+                <span>Type of return you're planning</span>
+                <select id="transitionType" name="transitionType">
+                  <option value="same-role">Return to same role / same field</option>
+                  <option value="refresh">Same field but need to refresh skills</option>
+                  <option value="adjacent">Move to adjacent / related role</option>
+                  <option value="career-switch">Full career switch to a new domain</option>
+                </select>
+              </label>
+              <p class="field-hint">This shapes whether your plan focuses on refresh, bridging, or full upskilling.</p>
+            </div>
+
+            <div class="field-group">
+              <label>
+                <span>Existing skills — list everything you can offer <span style="color:var(--accent)">&ast;</span></span>
+                <textarea id="skills" name="skills" rows="4"
+                  placeholder="e.g. JavaScript, project management, Excel, team coordination, SQL, stakeholder communication, Figma…"
+                  required></textarea>
+              </label>
+              <p class="field-hint">Comma-separated. Include both technical tools and soft skills — they all count.</p>
+            </div>
+
+            <div class="field-group">
+              <label>
+                <span>Any certifications, courses, or training completed during or before the break?</span>
+                <textarea id="certificationsHeld" name="certificationsHeld" rows="2"
+                  placeholder="e.g. Google Data Analytics, PMP, Scrum Master, or any online courses…"></textarea>
+              </label>
+              <p class="field-hint">Even partially completed courses are worth mentioning.</p>
+            </div>
+
+            <div class="field-group">
+              <label>
+                <span>Preferred work arrangement</span>
+                <select id="workArrangement" name="workArrangement">
+                  <option value="remote">Fully remote</option>
+                  <option value="hybrid">Hybrid (2–3 days in office)</option>
+                  <option value="onsite">Fully on-site / in-person</option>
+                  <option value="flexible">Flexible / open to any</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="field-group">
+              <label>
+                <span>Target employment type</span>
+                <select id="employmentType" name="employmentType">
+                  <option value="fulltime">Full-time permanent role</option>
+                  <option value="parttime">Part-time</option>
+                  <option value="returnship">Returnship / re-entry program</option>
+                  <option value="contract">Contract / freelance / consulting</option>
+                  <option value="open">Open to anything that fits</option>
+                </select>
+              </label>
+            </div>
+          </section>
+
+          <!-- ══════════════════════════════════════════
+               STEP 3 — Readiness & Mindset
+          ══════════════════════════════════════════ -->
+          <section class="step-panel" id="step-2" hidden>
+            <p class="step-heading">Your Current Readiness</p>
+            <p class="step-sub">Be honest — this shapes the pace and strategy of your plan, not a judgement.</p>
+
+            <div class="field-group">
+              <label>
+                <span>How confident do you feel about re-entering the workforce right now?</span>
+                <div class="slider-row">
+                  <input id="confidenceLevel" name="confidenceLevel" type="range" min="10" max="100" value="50" step="5" />
+                  <span id="confidenceValue" class="value-pill">50</span>
+                </div>
+                <div class="slider-labels">
+                  <span>Very nervous</span>
+                  <span>Cautiously ready</span>
+                  <span>Fully confident</span>
+                </div>
+              </label>
+              <p class="field-hint">Your confidence level shapes how we pace your plan and suggest starting points.</p>
+            </div>
+
+            <div class="field-group">
+              <label>
+                <span>How much time can you commit to upskilling each week?</span>
+                <select id="weeklyHours" name="weeklyHours">
+                  <option value="2">Under 3 hours / week</option>
+                  <option value="5">3–5 hours / week</option>
+                  <option value="10">5–10 hours / week</option>
+                  <option value="15">10–15 hours / week</option>
+                  <option value="20">15–20+ hours / week (dedicated comeback)</option>
+                </select>
+              </label>
+              <p class="field-hint">More time means a faster sprint and more aggressive milestones.</p>
+            </div>
+
+            <div class="field-group">
+              <label>
+                <span>Are you actively networking or reconnecting with peers?</span>
+                <select id="networkingStatus" name="networkingStatus">
+                  <option value="none">No — not yet started</option>
+                  <option value="light">Light — a few old contacts</option>
+                  <option value="moderate">Moderate — attending events or online communities</option>
+                  <option value="active">Active — regularly reaching out and building connections</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="field-group">
+              <label>
+                <span>Have you updated your resume or LinkedIn recently?</span>
+                <select id="profileStatus" name="profileStatus">
+                  <option value="outdated">No — still shows old role/break period</option>
+                  <option value="partial">Partially — some updates done</option>
+                  <option value="updated">Yes — fully updated with comeback story</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="field-group">
+              <label>
+                <span>How much of your technical knowledge do you feel is still current?</span>
+                <select id="skillCurrency" name="skillCurrency">
+                  <option value="very-outdated">Significantly outdated — things have changed a lot</option>
+                  <option value="somewhat">Somewhat outdated — core is fine but tools changed</option>
+                  <option value="mostly-current">Mostly current — minor gaps to fill</option>
+                  <option value="current">Still current — I've kept up during the break</option>
+                </select>
+              </label>
+              <p class="field-hint">Honest assessment helps us tune which skills to prioritize in your sprint.</p>
+            </div>
+
+            <div class="field-group">
+              <label>
+                <span>What is your biggest blocker right now?</span>
+                <select id="topBlocker" name="topBlocker">
+                  <option value="confidence">Self-confidence or imposter syndrome</option>
+                  <option value="skills-gap">Skill gaps or outdated technical knowledge</option>
+                  <option value="resume">Resume or personal branding needs work</option>
+                  <option value="time">Limited time due to ongoing personal commitments</option>
+                  <option value="network">Lack of professional network or references</option>
+                  <option value="market">Unsure about job market or salary expectations</option>
+                  <option value="childcare">Childcare or family logistics</option>
+                  <option value="clarity">Unclear about which role or path to target</option>
+                </select>
+              </label>
+              <p class="field-hint">Your biggest blocker becomes the first thing your plan addresses.</p>
+            </div>
+          </section>
+
+          <!-- ══════════════════════════════════════════
+               STEP 4 — Goals & Timeline
+          ══════════════════════════════════════════ -->
+          <section class="step-panel" id="step-3" hidden>
+            <p class="step-heading">Your Goals &amp; Timeline</p>
+            <p class="step-sub">Let's set a realistic target date and understand what success looks like for you.</p>
+
+            <div class="field-group">
+              <label>
+                <span>When are you hoping to land a role?</span>
+                <select id="targetTimeline" name="targetTimeline">
+                  <option value="1">Within 1 month (very urgent)</option>
+                  <option value="3">Within 3 months</option>
+                  <option value="6">Within 6 months</option>
+                  <option value="12">Within a year</option>
+                  <option value="flexible">Flexible — no fixed deadline</option>
+                </select>
+              </label>
+              <p class="field-hint">Your timeline determines the sprint intensity — tight timelines get more focused, assertive plans.</p>
+            </div>
+
+            <div class="field-group">
+              <label>
+                <span>Salary expectations (optional)</span>
+                <select id="salaryExpectation" name="salaryExpectation">
+                  <option value="not-sure">Not sure yet — guide me</option>
+                  <option value="below-previous">Below previous salary (flexible entry)</option>
+                  <option value="same">Same as before the break</option>
+                  <option value="above">Higher than before — I've grown</option>
+                </select>
+              </label>
+              <p class="field-hint">We use this to recommend realistic entry points and negotiation strategies.</p>
+            </div>
+
+            <div class="field-group">
+              <label>
+                <span>What does success look like for you in 6 months?</span>
+                <select id="successDefinition" name="successDefinition">
+                  <option value="hired">Land a job offer in my target role</option>
+                  <option value="interview-stage">Reach interview stage consistently</option>
+                  <option value="freelance">Start freelancing or consulting independently</option>
+                  <option value="returnship">Secure a returnship or fellowship</option>
+                  <option value="skills">Complete a certification and build portfolio</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="field-group">
+              <label>
+                <span>Do you have a mentor, sponsor, or support system?</span>
+                <select id="supportSystem" name="supportSystem">
+                  <option value="none">No — going at it alone</option>
+                  <option value="informal">A friend or family member in the field</option>
+                  <option value="community">Online community or cohort</option>
+                  <option value="mentor">Active mentor or career coach</option>
+                </select>
+              </label>
+              <p class="field-hint">Having support accelerates your comeback — we'll suggest resources to fill gaps here.</p>
+            </div>
+
+            <div class="field-group">
+              <label>
+                <span>Any specific companies or company types you're targeting?</span>
+                <select id="companyPreference" name="companyPreference">
+                  <option value="any">Open to all — best fit wins</option>
+                  <option value="startup">Startups — fast-paced, impactful</option>
+                  <option value="midsize">Mid-size — growth stage companies</option>
+                  <option value="enterprise">Large enterprises — structured, stable</option>
+                  <option value="nonprofit">Non-profit or social impact</option>
+                  <option value="remote-first">Remote-first companies specifically</option>
+                </select>
+              </label>
+            </div>
+
+            <article class="content-card inset-card" style="margin-top: 20px;">
+              <h3>What your plan will include</h3>
+              <ul>
+                <li>🎯 Personalized readiness score based on 15+ factors</li>
+                <li>📊 Skill gap analysis vs. market requirements</li>
+                <li>🗓 Weighted 30 / 60 / 90 day sprint roadmap</li>
+                <li>💪 Confidence-first action items for your biggest blocker</li>
+                <li>📚 Curated courses, certifications &amp; returnship leads</li>
+                <li>💬 Interview prep stories tailored to your break reason</li>
+                <li>💾 Saved permanently to your dashboard</li>
+              </ul>
+            </article>
+          </section>
+
+          <div class="wizard-actions">
+            <button id="prev-step" class="secondary-button" type="button" hidden data-i18n="planner.back">Back</button>
+            <button id="next-step" class="secondary-button" type="button" data-i18n="planner.next">Next</button>
+            <button id="submit-plan" class="primary-button" type="submit" hidden data-i18n="planner.generate">Generate
+              plan</button>
+          </div>
+          <p id="save-feedback" class="status-line"></p>
+        </form>
+
+        <section class="section-heading compact-heading">
+          <p class="eyebrow" data-i18n="common.quickDemo">Quick demo personas</p>
+          <h2>Instant examples</h2>
+        </section>
+        <div id="persona-strip" class="card-grid three"></div>
+      </section>
+
+      <section id="planner-results" class="planner-results"></section>
+    </main>
+  </div>
+
+  <script type="module" src="./planner.js"></script>
+  <script src="./bg-animation.js" defer></script>
+  <script src="./footer.js" defer></script>
+  <script src="./transitions.js" defer></script>
+</body>
+
+</html>
