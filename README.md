@@ -12,11 +12,8 @@
   </p>
 </div>
 
----
 
-> [!NOTE]
-> **GDG Code4Her Track 1 Submission**
-> Developed with passion for academic review, career empowerment, and modern software engineering standards at **SRM University AP**.
+---
 
 **ReLaunchHer** is a highly interactive, responsive, and multilingual web application designed to bridge the career gap for women returning to the workforce. By employing a comprehensive multi-factor inference engine, ReLaunchHer goes beyond typical job search boards. It provides returnees with personalized career readiness scoring, custom-synthesized 30/60/90-day roadmaps, targeted skill gap remediation, and a supportive mentorship/recruiter ecosystem.
 
@@ -246,16 +243,6 @@ Verify the logic scoring model and inference edge cases via built-in unit tests:
 ```bash
 npm test
 ```
-
----
-
-## 👥 Academic & Team Credentials
-
-This project was built for **SRM University AP** project evaluation and the **GDG Code4Her Track 1** challenge:
-
-*   **Prateek Pulkit** — AP23110011175
-*   **Srinadh Yakasiri** — AP23110011171
-*   **Abhishek Das** — AP23110011180
 
 ---
 
